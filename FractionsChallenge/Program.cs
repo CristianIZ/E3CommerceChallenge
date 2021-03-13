@@ -111,6 +111,9 @@ namespace FractionsChallenge
             if (numerator == 0)
                 return "0";
 
+            if (numerator == divider)
+                return "1";
+
             List<int> numDividers, divDividers;
 
             if (numerator > divider)
@@ -127,7 +130,7 @@ namespace FractionsChallenge
                 numDividers = GetAllDividers(numerator);
 
                 if (numDividers.Count > 0)
-                    divDividers = GetAllDividers(numerator, numDividers.Max());
+                    divDividers = GetAllDividers(divider, numDividers.Max());
                 else
                     divDividers = new List<int>();
             }
