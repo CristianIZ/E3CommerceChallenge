@@ -72,6 +72,9 @@ namespace NameValidatorChallenge
             if (IsValidInitial(firstName) && IsValidInitial(secondName) && IsValidName(lasName))
                 return true;
 
+            if (IsValidInitial(firstName) && IsValidName(secondName))
+                throw new InvalidInputException("No se admite inicial como primer nombre y palabra como segundo");
+
             // nombre, inicial, apellido
             if (IsValidName(firstName) && IsValidInitial(secondName) && IsValidName(lasName))
                 return true;
@@ -80,7 +83,7 @@ namespace NameValidatorChallenge
             if (IsValidName(firstName) && IsValidName(secondName) && IsValidName(lasName))
                 return true;
 
-            throw new InvalidInputException("Solo se admite iniciales y apellido, o");
+            throw new InvalidInputException("Solo se admite iniciales y apellido, o bien nombres y apellido");
         }
 
         /// <summary>
@@ -115,6 +118,9 @@ namespace NameValidatorChallenge
         /// <returns></returns>
         public static bool IsValidName(string name)
         {
+            if (name.Contains('.'))
+                return false;
+
             // Verifico si es un nombre con formato "Nombre" (primer letra mayuscula resto en minuscula)
             if (!wordValidator.Match(name).Success)
                 throw new InvalidInputException($"Los nombres o apellidos deben comenzar con 1 letra mayuscula y el resto en minusculas");
