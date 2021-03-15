@@ -26,10 +26,16 @@ namespace FractionsChallenge
                     var simplifiedFraction = CalculateResult(int.Parse(num), int.Parse(div));
                     Console.WriteLine($"El resultado es: {simplifiedFraction}");
                 }
-                catch (Exception ex)
+                catch (InvalidInputException ex)
                 {
                     Console.WriteLine(ex.Message);
                     Console.WriteLine("Intentemos nuevamente");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Excepcion no controlada");
+                    Console.WriteLine("Intentemos nuevamente");
+                    // Log
                 }
 
                 Console.WriteLine("Presione cualquier tecla para realizar un nuevo calculo");
@@ -72,33 +78,33 @@ namespace FractionsChallenge
             try
             {
                 if (number.Contains(" "))
-                    throw new Exception("No se admiten espacios");
+                    throw new InvalidInputException("No se admiten espacios");
 
                 if (string.IsNullOrWhiteSpace(number))
-                    throw new Exception("No se detecto ningun valor ingresado");
+                    throw new InvalidInputException("No se detecto ningun valor ingresado");
 
                 if (number.Contains(".") || number.Contains(","))
-                    throw new Exception("No se admiten separadores de miles ni numeros decimales");
+                    throw new InvalidInputException("No se admiten separadores de miles ni numeros decimales");
 
                 var regex = new Regex(@"^\d+$");
                 if (!regex.Match(number).Success)
-                    throw new Exception("Solo se admiten valores numericos");
+                    throw new InvalidInputException("Solo se admiten valores numericos");
 
                 if (number.Length > 10)
-                    throw new Exception($"El valor es demasiado grande, intente con un valor mas chico");
+                    throw new InvalidInputException($"El valor es demasiado grande, intente con un valor mas chico");
 
                 long val;
                 var longRes = long.TryParse(number, out val);
                 if (val > int.MaxValue - 1)
-                    throw new Exception($"El valor es demasiado grande, intente con un valor mas chico");
+                    throw new InvalidInputException($"El valor es demasiado grande, intente con un valor mas chico");
 
                 int value;
                 var result = int.TryParse(number, out value);
                 if (!result)
-                    throw new Exception($"No es posible convertir el valor: {number} en un entero");
+                    throw new InvalidInputException($"No es posible convertir el valor: {number} en un entero");
 
                 if (isDivider && value == 0)
-                    throw new Exception("No es posible dividir por 0");
+                    throw new InvalidInputException("No es posible dividir por 0");
             }
             catch (Exception ex)
             {
@@ -154,6 +160,13 @@ namespace FractionsChallenge
                 else
                     return $"{numerator}/{divider}";
             }
+        }
+    }
+
+    public class InvalidInputException : Exception
+    {
+        public InvalidInputException(string message) : base(message)
+        {
         }
     }
 }
