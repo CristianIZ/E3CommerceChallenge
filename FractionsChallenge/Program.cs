@@ -7,6 +7,9 @@ namespace FractionsChallenge
 {
     class Program
     {
+        // Autor: Zappala Cristian Ivan
+        // Repositorio https://github.com/CristianIZ/E3CommerceChallenge
+
         static void Main(string[] args)
         {
             while (true)

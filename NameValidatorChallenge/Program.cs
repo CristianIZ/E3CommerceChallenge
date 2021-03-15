@@ -5,6 +5,9 @@ namespace NameValidatorChallenge
 {
     class Program
     {
+        // Autor: Zappala Cristian Ivan
+        // Repositorio https://github.com/CristianIZ/E3CommerceChallenge
+
         // Condicion: Primer letra mayuscula, el resto minuscula y no tener caracteres extra
         static Regex wordValidator = new Regex("^[A-Z]{1}[a-z]+$");
         static Regex lowerCaseValidator = new Regex("[a-z]+$");
@@ -32,7 +35,7 @@ namespace NameValidatorChallenge
                 catch (Exception ex)
                 {
                     //Log
-                    Console.WriteLine("Algo salio mal");
+                    Console.WriteLine("Excepcion no controlada");
                     Console.WriteLine("Intentemos nuevamente");
                 }
 
